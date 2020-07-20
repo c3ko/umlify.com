@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+    backend:
+        image: maven:latest
+        restart: always
+        volumes:
+            - ./umldraw/:/backend
+        working_dir: /backend/
+        command: sh entrypoint.sh
+        expose:
+            - "8080"
+
+    frontend:
+        image: node:latest
+        restart: always
+        volumes:
+            - ./umlify-front-v2/:/frontend
+            - react-build:/frontend/build
+        working_dir: /frontend/
+        command: sh entrypoint.sh
+    nginx:
+        image: nginx:latest
+        restart: always
+        ports:
+            - 80:8040
+        volumes:
+            - ./nginx/nginx-proxy.conf:/etc/nginx/conf.d/default.conf:ro
+            - react-build:/var/www/frontend
+        depends_on: 
+            - backend
+    volumes:
+        react-build:/frontend/build

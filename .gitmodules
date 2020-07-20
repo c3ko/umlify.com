@@ -1,0 +1,6 @@
+[submodule "umlify-front-v2"]
+	path = umlify-front-v2
+	url = https://github.com/c3ko/umlify-front-v2.git
+[submodule "umlify-back"]
+	path = umlify-back
+	url = https://github.com/c3ko/umlify-back.git

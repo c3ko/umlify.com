@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+    backend:
+        image: maven:alpine
+        volumes:
+            - ./umldraw/:/backend
+        working_dir: /backend/
+        command: sh entrypoint.sh
+        expose:
+            - "8080"
+
+    frontend:
+        image: node
+        volumes:
+            - ./umlify-front-v2/:/frontend
+            - react-build:/frontend/build
+        working_dir: /frontend/
+        command: sh entrypoint.sh
+    nginx:
+        image: nginx
+        restart: always
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - ./nginx/nginx-proxy-docker.conf:/etc/nginx/conf.d/default.conf:ro
+            - react-build:/var/www/frontend
+        depends_on:
+            - frontend
+            - backend
+
+volumes:
+    react-build:
+
