@@ -4,7 +4,7 @@ services:
     backend:
         image: maven:alpine
         volumes:
-            - ./umldraw/:/backend
+            - ./umlify-back/:/backend
         working_dir: /backend/
         command: sh entrypoint.sh
         expose:
