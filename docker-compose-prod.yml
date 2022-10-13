@@ -1,8 +1,8 @@
-version: "3"
+version: "3.7"
 
 services:
     backend:
-        image: maven:alpine
+        image: maven:3-jdk-8-alpine
         volumes:
             - ./umlify-back/:/backend
         working_dir: /backend/
@@ -11,14 +11,14 @@ services:
             - "8080"
 
     frontend:
-        image: node
+        image: node:13
         volumes:
             - ./umlify-front-v2/:/frontend
             - react-build:/frontend/build
         working_dir: /frontend/
         command: sh entrypoint.sh
     nginx:
-        image: nginx
+        image: nginx:1.19.4
         restart: always
         ports:
             - 80:80
